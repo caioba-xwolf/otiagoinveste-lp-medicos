@@ -279,7 +279,12 @@
       var io = new IntersectionObserver(function (en) {
         if (en[0].isIntersecting) { io.disconnect(); start(); }
       }, { rootMargin: "600px 0px" });
-      io.observe(root);
+      io.observe(root.closest("section") || root);
+      // Redes de segurança: primeira interação ou alguns segundos após o carregamento.
+      root.addEventListener("focusin", start);
+      root.addEventListener("pointerdown", start);
+      var later = function () { setTimeout(start, 3500); };
+      if (document.readyState === "complete") later(); else window.addEventListener("load", later);
     } else {
       start();
     }

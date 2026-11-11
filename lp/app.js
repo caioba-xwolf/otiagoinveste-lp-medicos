@@ -34,14 +34,22 @@
   }
 
   /* ---------- Animações de entrada ---------- */
+  // Observa as seções (não cada elemento): mantém o content-visibility eficaz
+  // e revela os elementos de cada seção quando ela entra na tela.
   var reveals = document.querySelectorAll(".reveal");
   if (hasIO && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    var groups = document.querySelectorAll("main > section, .site-footer");
     var rvObs = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.classList.add("is-in"); rvObs.unobserve(en.target); }
+        if (!en.isIntersecting) return;
+        en.target.querySelectorAll(".reveal").forEach(function (el, k) {
+          el.style.transitionDelay = Math.min(k, 6) * 60 + "ms";
+          el.classList.add("is-in");
+        });
+        rvObs.unobserve(en.target);
       });
-    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
-    reveals.forEach(function (el) { rvObs.observe(el); });
+    }, { rootMargin: "0px 0px -10% 0px", threshold: 0 });
+    groups.forEach(function (g) { rvObs.observe(g); });
   } else {
     reveals.forEach(function (el) { el.classList.add("is-in"); });
   }
