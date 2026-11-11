@@ -60,10 +60,41 @@ Todas as headlines principais começam com **"Médico(a),"**.
 - Link do YouTube adicionado (seção do Tiago e rodapé). Nenhum vídeo foi incorporado, porque não há um escolhido.
 - Cripto **não** aparece nas classes de ativos.
 
+### Performance — medida (Lighthouse 13.6 contra a versão publicada no GitHub Pages)
+A API pública do PageSpeed estava sem cota, então rodei o Lighthouse localmente (Chrome headless). **Atenção:** o índice de CPU desta máquina variou de 542 a 1.043 entre rodadas. Isso deixa o TBT do mobile instável e inflado.
+
+| Métrica | Antes das otimizações | Depois | Meta |
+|---|---|---|---|
+| LCP mobile | 3,0 s | **1,0 s** (uma rodada fora da curva com 4,6 s, logo após a publicação, por latência do CDN) | < 2,5 s ✅ |
+| LCP desktop | 0,7 s | **0,6 s** | ✅ |
+| CLS | 0 | **0** | < 0,1 ✅ |
+| TBT mobile (aproxima o INP) | 1.270–2.110 ms | 790–2.930 ms (ruído da máquina) | < 200 ms ❌ no laboratório |
+| TBT desktop | 390 ms | 210–260 ms | ⚠️ |
+| Interação no simulador (INP real) | — | **~6 ms por atualização, 0 tarefas longas em 20 interações** | < 200 ms ✅ |
+| Acessibilidade / SEO / Boas práticas | 100 / 100 / 100 | **100 / 100 / 100** | |
+
+Otimizações aplicadas:
+- Removido `text-wrap: pretty` dos parágrafos.
+- Sem `backdrop-filter` no mobile.
+- `tracking.js` com `defer`.
+- Preload da foto do hero só no desktop.
+- `content-visibility: auto` nas seções abaixo da dobra.
+- Animações observando as seções, não cada elemento.
+- Simulador calculado só perto da tela, ou na primeira interação, ou 3,5 s após o carregamento.
+
+Pelo trace, o TBT restante vem de **layout do navegador antes da primeira pintura** (HTML longo chegando em partes e o redesenho com a fonte Manrope), não de JavaScript.
+
+Próximos passos possíveis, se a meta de TBT em laboratório for obrigatória:
+1. CSS crítico inline e o restante assíncrono.
+2. `font-display: optional` (evita o segundo layout, mas pode mostrar a fonte do sistema na primeira visita).
+3. Hospedar as fotos do Unsplash no próprio domínio.
+4. Cabeçalhos de cache longos no servidor oficial (o GitHub Pages fixa 10 min).
+5. Validar com o PageSpeed (com chave de API) e com dados reais do CrUX após a publicação no domínio oficial.
+
 ### Ainda não verificado
-- Core Web Vitals em produção: ver o resultado do PageSpeed na conversa ou medir de novo depois da publicação oficial.
 - Envio real ao `enviar-lead.php`, que só existe no domínio oficial.
-- O projeto não tem scripts de lint, build ou testes automatizados (HTML/CSS/JS estático).
+- Core Web Vitals de campo (usuários reais): a página ainda não tem tráfego.
+- O projeto não tem scripts de lint, build ou testes automatizados (HTML/CSS/JS estático). Os testes executados foram o script Node do simulador, os testes no navegador e o Lighthouse.
 
 ---
 
