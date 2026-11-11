@@ -1,4 +1,4 @@
-# Nova LP — O Tiago Investe · Consultoria de investimentos para médicos
+# Nova LP — O Tiago Investe · Consultoria de investimentos para médicos (Café Digital)
 
 Pasta: `nova-lp/`. É uma página estática, sem framework e sem build. Para publicar, suba o conteúdo da pasta para a raiz do domínio.
 
@@ -15,6 +15,79 @@ nova-lp/
     ├── fonts/manrope-latin.woff2
     └── img/ (fotos reais do Tiago, reaproveitadas do site atual)
 ```
+
+---
+
+## Versão 6 — Café Digital (atual)
+
+**Oferta de entrada:** Café Digital com Tiago Lopes, uma conversa individual e gratuita. Todos os CTAs principais levam ao formulário de solicitação (`#agendar`).
+
+### Estrutura final
+| # | Seção (id) | Headline | Função |
+|---|---|---|---|
+| 1 | Hero (`inicio`) | Você dedicou anos para cuidar de outras pessoas. E quem está cuidando dos seus investimentos? | Identificação + convite |
+| 2 | Carreira e futuro (`futuro`) | Sua carreira foi construída com dedicação. Sua liberdade financeira também precisa de planejamento. | Conexão emocional |
+| 3 | Problema (`problema`) | Ganhar bem não é a mesma coisa que investir bem. | Consciência |
+| 4 | Simulador (`simulador`) | Quanto seus investimentos podem representar no futuro? (+ recado do Tiago e CTA) | Visualização |
+| 5 | Não está sozinho (`sozinho`) | Você já tem uma profissão. Não precisa assumir outra para cuidar dos seus investimentos. | Diferenciação |
+| 6 | Método (`metodo`) | Um plano para seus investimentos, construído a partir da sua realidade. | Mecanismo |
+| 7 | Carteira (`carteira`) | Uma carteira de investimentos não deve ser uma coleção de aplicações sem direção. | Demonstração |
+| 8 | Acompanhamento (`acompanhamento`) | Como eu ajudo você a organizar seus investimentos. (+ comparativo Café × Consultoria) | Clareza da entrega |
+| 9 | Quem sou eu (`tiago`) | Prazer, eu sou Tiago Lopes. | Autoridade |
+| 10 | Café Digital (`cafe-digital`) | Vamos tomar um Café Digital e conversar sobre seus investimentos? | Oferta |
+| 11 | Formulário (`agendar`) | Vamos conversar sobre seus investimentos? | Conversão |
+| 12 | FAQ (`duvidas`) | Antes do nosso Café Digital | Objeções |
+| 13 | CTA final | Médico(a), você já dedica boa parte do seu tempo à medicina… | Conversão |
+
+### Copy
+- Narrativa em **primeira pessoa** (o Tiago falando com o médico). A terceira pessoa ficou só nas credenciais, nos avisos legais e no rodapé.
+- **"Médico(a)"** aparece só no CTA final. O hero identifica o público pelo eyebrow ("consultoria de investimentos para médicos") e pelas situações da rotina (plantões, consultório, pacientes).
+- Diferença explícita entre **Café Digital** (conversa inicial gratuita, diagnóstico e direcionamento) e **Consultoria** (acompanhamento contratado por cerca de 12 meses), na seção 8, na seção 10 e no FAQ.
+- A página de obrigado diz "Recebi suas informações. Agora vamos organizar os próximos passos para o nosso Café Digital" e deixa claro que ele **ainda não está agendado** (o contato é feito pelo WhatsApp).
+- Escopo: "Aqui o assunto é um só: investimentos. Não trabalho com holding, planejamento tributário, sucessório ou imobiliário."
+
+### Formulário
+Campos: nome, WhatsApp, e-mail, faixa de patrimônio e objetivo. **A especialidade saiu**, como pedido. O `app.js` continua enviando o campo `especialidade` vazio, para manter a compatibilidade com o PHP.
+
+Objetivos, na ordem: renda passiva que pague as contas → diminuir a dependência dos plantões → organizar a carteira atual → começar a investir com orientação → aposentadoria → mais liberdade → outro.
+
+### Integrações preservadas
+- Meta Pixel (desligado fora do domínio oficial), GA4/GTM prontos e UTMs com primeira origem da sessão.
+- Lead **só** em `/obrigado/` após POST bem-sucedido.
+- Modo prévia, honeypot e endpoint `/enviar-lead.php`.
+- `form_id` dos eventos renomeado de `diagnostico` para `cafe_digital`. Ajuste filtros no GTM/GA4, se existirem.
+- Eventos do Meta: `PageView`, `ViewContent` (Método), `Lead`.
+- **`Schedule` e `Contact` não foram implementados**: não há agenda integrada nem WhatsApp configurado (`agendaUrl` e `whatsappNumero` vazios em `lp/tracking.js`). Disparar `Schedule` exige confirmação real de horário.
+
+### Testes executados (v6)
+- **Simulador (Node):** 7/7 aprovados — fórmula × iteração mês a mês, taxa mensal, capital + rendimentos = VF, taxa 0, cenário B, cenário A, valores de hoje.
+- **Navegador:**
+  - Simulador recalcula: 100 mil + 5 mil/mês a 8% por 20 anos = R$ 3.311.091.
+  - Carteira troca de classe.
+  - Validação com 5 erros.
+  - Modo prévia não envia dados.
+  - Produção simulada: erro → sem Lead; sucesso → 1 `generate_lead` com `cafe_digital`.
+  - 9 CTAs apontando para `#agendar` (mais o link do YouTube).
+  - Sem erros no console.
+- **Responsividade:** 1366 px e 375 px sem estouro horizontal. Botão do topo visível na primeira tela: termina em 776/820 px no desktop e em 694/812 px no mobile. Botões com 56 px de altura no mobile.
+- **Lighthouse (versão publicada):**
+  - Mobile: acessibilidade, boas práticas e SEO 100; LCP 1,1–1,2 s; CLS 0.
+  - Desktop: LCP 1,2 s; CLS 0.
+  - **TBT não conclusivo**: o índice de CPU da máquina caiu para 215–311 (sobrecarregada) nas rodadas da v6. Repetir em máquina livre ou no PageSpeed.
+- O projeto não tem build, lint ou typecheck (HTML/CSS/JS estático).
+
+### Pendências de validação
+1. **Confirmar com o Tiago o que ele entrega no Café Digital.** A página promete olhar a carteira atual e desenhar um direcionamento inicial pelo M.A.P.A.
+2. Confirmar se a conversa é por vídeo e se ele quer usar link de agenda (`agendaUrl`) e WhatsApp (`whatsappNumero`). Com isso dá para medir `Schedule` e `Contact`.
+3. Registro na CVM ativo (categoria) e enquadramento como "investidor profissional" (ainda não publicado).
+4. `enviar-lead.php`: aceitar os campos, fixar o destinatário no servidor e confirmar a entrega dos dados ao atendimento (condição para a frase "Recebi suas informações").
+5. Aviso de Privacidade (dados reais) e revisão regulatória da copy.
+
+### Testes A/B recomendados
+1. Headline: atual × `?hv=a` "Você trabalha para construir sua renda. Eu ajudo você a construir seus investimentos."
+2. Nome da oferta: "Café Digital" × "Conversa de diagnóstico" (medir a taxa de solicitação **e** o comparecimento).
+3. Posição do formulário: depois da seção Café Digital (atual) × logo após o hero.
+4. Com e sem o simulador acima da dobra no mobile.
 
 ---
 
