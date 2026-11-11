@@ -1,4 +1,4 @@
-# Nova LP — Tiago Lopes · Planejamento patrimonial para médicos
+# Nova LP — O Tiago Investe · Consultoria de investimentos para médicos
 
 Pasta: `nova-lp/`. É uma página estática, sem framework e sem build. Para publicar, suba o conteúdo da pasta para a raiz do domínio.
 
@@ -8,12 +8,62 @@ nova-lp/
 ├── obrigado/index.html     ← confirmação pós-envio (único lugar onde o Lead dispara)
 ├── privacidade/index.html  ← Aviso de Privacidade (RASCUNHO, precisa de dados reais)
 └── lp/
-    ├── tracking.js         ← CONFIGURAÇÃO CENTRAL + Meta Pixel / GA4 / GTM + UTMs
+    ├── tracking.js         ← CONFIGURAÇÃO CENTRAL + Meta Pixel / GA4 / GTM + UTMs + modo prévia
     ├── app.js              ← formulário, eventos, CTA fixo, animações
+    ├── simulador.js        ← simulador de investimentos + carteira ilustrativa (sem dependências)
     ├── styles.css
     ├── fonts/manrope-latin.woff2
     └── img/ (fotos reais do Tiago, reaproveitadas do site atual)
 ```
+
+---
+
+## Versão 5 — otimização (posicionamento, simulador, carteira, acompanhamento)
+
+### Estrutura final das seções
+Todas as headlines principais começam com **"Médico(a),"**.
+
+| # | Seção | Headline |
+|---|---|---|
+| 1 | Hero (foto real do Tiago + cartão de carteira ilustrativa) | Médico(a), você ganha bem hoje. Mas seus investimentos estão preparados para o seu futuro? |
+| 2 | Especialidade (classes de ativos, "o que não é", "o que a consultoria inclui") | Médico(a), esta é uma consultoria de investimentos. |
+| 3 | Renda × horas (Hoje / Sem estratégia / Com estratégia) | Médico(a), na medicina a renda depende das suas horas. |
+| 4 | **Simulador** | Médico(a), quanto você pode construir investindo todos os meses? |
+| 5 | **Carteira ilustrativa interativa** + CTA "Quero analisar minha carteira" | Médico(a), investir não é escolher qualquer aplicação… |
+| 6 | **Acompanhamento individual** (4 etapas + painel ilustrativo) | Médico(a), você não precisa investir sozinho. |
+| 7 | Método M.A.P.A. (como roteiro da consultoria, não curso) | Médico(a), sua consultoria segue um método. |
+| 8 | Liberdade (fotos 30–45 anos) | Médico(a), liberdade financeira é poder escolher como viver e trabalhar. |
+| 9 | Histórias ilustrativas | Médico(a), você se reconhece em alguma destas situações? |
+| 10 | Tiago (credenciais + link do YouTube) | Médico(a), conheça quem vai acompanhar seus investimentos. |
+| 11 | Diagnóstico + formulário | Médico(a), descubra por onde começar ou o que pode melhorar nos seus investimentos. |
+| 12 | FAQ (novo: "O Tiago faz as operações por mim?") | Médico(a), tire suas dúvidas antes do diagnóstico. |
+| 13 | CTA final | Médico(a), você já construiu a sua carreira… |
+
+### Simulador (`lp/simulador.js`)
+- Campos: patrimônio inicial (padrão R$ 100 mil, limite R$ 20 mi), aporte mensal (R$ 3 mil, limite R$ 1 mi), prazo (20 anos, 1–40) e taxa anual hipotética (chips de 6/8/10%, editável de 0 a 30%). Opcionalmente, mostra valores descontados pela inflação.
+- Fórmulas: `i = (1+a)^(1/12) − 1`; `VF = P(1+i)^n + A[((1+i)^n − 1)/i]`; com i = 0, `VF = P + A·n`. Capital aportado = `P + A·n` e rendimentos = `VF − capital`, sempre separados.
+- Com inflação, os valores aparecem "em valores de hoje": usa a taxa real `(1+taxa)/(1+inflação) − 1`, com aportes reajustados pela inflação.
+- Gráfico em SVG nativo, com 3 cenários (sem remuneração / inicial sem aportes / com aportes). Tem tooltip por toque ou mouse e navegação pelas setas do teclado.
+- **Testes executados:**
+  - Script Node: a fórmula bate com a iteração mês a mês (diferença de 5×10⁻¹⁰); a taxa mensal recompõe exatamente 8% ao ano; taxa 0 dá P + A·n; o cenário B dá P·1,08²⁰.
+  - Navegador: valores-padrão (R$ 2.173.093), cenário 500 mil + 10 mil/mês a 10% por 30 anos (R$ 29,35 mi), campos vazios (R$ 0), limite de valor e inflação (R$ 1.286.251 em valores de hoje).
+
+### Carteira ilustrativa
+50% renda fixa, 25% ações, 15% FIIs, 10% internacional = 100%. Ao clicar em uma classe, aparece a explicação dela (textos do briefing). Está marcada como composição exclusivamente demonstrativa.
+
+### Novos eventos (dataLayer / GA4, sem evento no Meta)
+`simulator_interaction` (primeira interação com o simulador) e `portfolio_interaction` (primeira interação com a carteira). O Lead continua disparando **só em `/obrigado/` após POST bem-sucedido**. Retestado: erro do servidor → sem Lead; sucesso → 1 `generate_lead`.
+
+### Credenciais
+- "Investidor profissional" **não está publicado**. Fica em comentário até confirmar que o Tiago atende à definição da CVM e tem a documentação.
+- "Consultor de valores mobiliários — registro na CVM" está publicado com base na informação do Tiago. **Confirmar se o registro está ativo** antes da publicação oficial.
+- Link do YouTube adicionado (seção do Tiago e rodapé). Nenhum vídeo foi incorporado, porque não há um escolhido.
+- Cripto **não** aparece nas classes de ativos.
+
+### Ainda não verificado
+- Core Web Vitals em produção: ver o resultado do PageSpeed na conversa ou medir de novo depois da publicação oficial.
+- Envio real ao `enviar-lead.php`, que só existe no domínio oficial.
+- O projeto não tem scripts de lint, build ou testes automatizados (HTML/CSS/JS estático).
 
 ---
 
