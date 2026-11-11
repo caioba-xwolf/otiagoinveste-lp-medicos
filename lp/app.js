@@ -193,6 +193,13 @@
       from_name: C.emailFromName
     }, attr);
 
+    // Modo prévia (fora do domínio oficial): não envia dados nem gera Lead.
+    if (C.demo) {
+      showAlert("Prévia de demonstração: nenhum dado foi enviado. No site oficial, este botão envia o cadastro e leva à página de confirmação.");
+      setTimeout(function () { window.location.href = "obrigado/?demo=1"; }, 2200);
+      return;
+    }
+
     setLoading(true);
     track("form_submit_attempt", { form_id: "diagnostico" });
 
@@ -226,7 +233,7 @@
             variante_hero: payload.variante_hero
           }));
         } catch (err) {}
-        window.location.href = "/obrigado/";
+        window.location.href = "obrigado/";
       })
       .catch(function (err) {
         clearTimeout(timer);

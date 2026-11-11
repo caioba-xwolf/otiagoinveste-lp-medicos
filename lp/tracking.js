@@ -33,6 +33,19 @@ window.LP_CONFIG = {
   agendaUrl: ""
 };
 
+/* Modo prévia: fora do domínio oficial (GitHub Pages, localhost etc.) o tracking fica
+   desligado, o formulário não envia dados e a página recebe noindex. */
+window.LP_CONFIG.dominiosProducao = ["otiagoinveste.com", "www.otiagoinveste.com"];
+window.LP_CONFIG.demo = window.LP_CONFIG.dominiosProducao.indexOf(location.hostname) === -1;
+if (window.LP_CONFIG.demo) {
+  window.LP_CONFIG.metaPixelId = "";
+  window.LP_CONFIG.ga4Id = "";
+  window.LP_CONFIG.gtmId = "";
+  var nx = document.createElement("meta");
+  nx.name = "robots"; nx.content = "noindex, nofollow";
+  document.head.appendChild(nx);
+}
+
 (function () {
   var C = window.LP_CONFIG;
   window.dataLayer = window.dataLayer || [];
