@@ -1025,3 +1025,7 @@ main > section:not(.hero), .site-footer { content-visibility: auto; contain-intr
   .hero-sub { font-size: 0.98rem; margin-top: 14px; }
   .hero-invite { padding: 16px 16px 14px; }
 }
+
+/* legenda do gráfico com fundo explícito (contraste estável em qualquer verificação) */
+.sim-legend { background: var(--white); color: #4a5462; }
+.sim-results { background: var(--white); }
