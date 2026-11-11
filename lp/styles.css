@@ -930,3 +930,6 @@ html { scroll-padding-top: 88px; }
   .sticky-cta { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(10, 20, 34, 0.98); }
 }
 .site-header, .hero-portfolio { contain: layout; }
+
+/* performance: seções fora da tela não são calculadas até se aproximarem */
+main > section:not(.hero), .site-footer { content-visibility: auto; contain-intrinsic-size: auto 900px; }
