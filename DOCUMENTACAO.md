@@ -17,6 +17,28 @@ nova-lp/
 
 ---
 
+## Versão 3 — feedback do Tiago (11/11/2026)
+
+| Feedback | O que mudou |
+|---|---|
+| Cabeçalho "muito colado"; marca deve ser "O Tiago Investe" | Header mais alto (76 px), mais espaço entre ícone, nome e subtítulo. Marca "O Tiago Investe" em todas as páginas e no título da aba. |
+| Foto inicial (família) não conversa com médico | Hero com foto de uma **médica trabalhando no consultório**. |
+| "Quando você para, ela para" | Trocado por "**Quando você para de trabalhar, o dinheiro para de entrar.**" |
+| Fotos remetiam a público idoso | Galeria refeita com pessoas de 30 a 45 anos: família jovem, casa, viagem, filhos. Cards: *Trabalhar porque quer, não porque precisa*, *Renda que paga as suas contas*, *Férias*, *Filhos*, *Viajar/temporada fora*. |
+| Parecia curso; não deixava claro que é consultoria de investimentos | Eyebrow do hero: "Consultoria de investimentos para médicos". Seção da consultoria: "Não é curso nem aula… o Tiago monta a sua carteira com você". FAQ novo: "É um curso?". |
+| Acompanhamento = ajustar a carteira (comprar, vender, manter) | Etapas P e A reescritas: "O Tiago indica o que comprar, quanto e por quê — e vocês executam juntos" e "o que comprar, o que vender e o que manter". |
+| "Pego na mão e faço junto" | Título: "Você não precisa entender de investimentos. O Tiago faz junto com você." Mesma ideia no FAQ. |
+| Currículo: tirar Administração, colocar registro CVM e investidor profissional | Credenciais: Consultor de valores mobiliários (CVM), Investidor profissional, MBA em Investimentos, CEA. Saiu o bacharelado. O YouTube não entrou porque falta o link do canal. |
+| Não gosta de "sem compromisso" | Removido de toda a página. |
+| Criativos prometem diagnóstico da carteira | A oferta virou "**Diagnóstico gratuito da sua carteira**": o Tiago analisa os investimentos atuais e mostra o que pode melhorar. A frase "não é análise completa" foi removida. |
+| Objetivo no formulário | Primeira opção: "**Ter uma renda passiva que pague minhas contas**". |
+
+**Atenção — compliance:** a página agora afirma "consultor de investimentos registrado na CVM" e "investidor profissional". Antes de publicar no domínio oficial, confirmar a categoria exata do registro (consultor de valores mobiliários) e, se quiser exibir, o número ou o ato declaratório. A promessa de "diagnóstico da carteira" precisa corresponder ao que o Tiago faz na call.
+
+**Áudios do Tiago:** não foram ouvidos, porque não havia ferramenta de transcrição na máquina. Se trouxerem algo além do texto, falta incorporar.
+
+---
+
 ## A. Diagnóstico da página atual
 
 **Base analisada.** O diretório local é um espelho feito com HTTrack de `otiagoinveste.com`: um app React/Vite já compilado. O código-fonte não está aqui. A página tem as rotas `/`, `/medicos`, `/renda-passiva` e `/obrigado`.

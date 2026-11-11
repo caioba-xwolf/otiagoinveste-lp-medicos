@@ -686,3 +686,23 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .final-img .lead { color: rgba(255, 255, 255, 0.85); margin: 18px auto 0; }
 .final-img .btn { margin-top: 32px; }
 .final-img .micro { color: rgba(255, 255, 255, 0.7); }
+
+/* =========================================================
+   v3 — cabeçalho com mais respiro (feedback do Tiago)
+   ========================================================= */
+.header-inner { height: 76px; }
+.brand { gap: 14px; }
+.brand-mark { width: 42px; height: 42px; border-radius: 11px; font-size: 0.9rem; }
+.brand-text { gap: 5px; line-height: 1; }
+.brand-name { font-size: 1.08rem; letter-spacing: -0.01em; }
+.brand-sub { font-size: 0.64rem; letter-spacing: 0.2em; color: rgba(212, 191, 150, 0.85); }
+html { scroll-padding-top: 88px; }
+@media (max-width: 479px) {
+  .header-inner { height: 68px; }
+  .brand { gap: 11px; }
+  .brand-mark { width: 38px; height: 38px; }
+  .brand-name { font-size: 1rem; }
+  .site-header .btn-sm { padding: 0 14px; font-size: 0.78rem; }
+}
+@media (max-width: 380px) { .brand-sub { display: block; } .site-header .btn-sm { display: none; } }
+#s4-title .gold { display: block; }
