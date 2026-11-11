@@ -706,3 +706,66 @@ html { scroll-padding-top: 88px; }
 }
 @media (max-width: 380px) { .brand-sub { display: block; } .site-header .btn-sm { display: none; } }
 #s4-title .gold { display: block; }
+
+/* =========================================================
+   v4 — especialidade em investimentos (áudios do Tiago)
+   ========================================================= */
+/* cartão de carteira sobre a foto do hero */
+.hero-portfolio {
+  position: absolute; top: 18px; left: -18px; z-index: 2; width: 200px;
+  background: rgba(255, 255, 255, 0.96); border-radius: 14px; padding: 14px 14px 12px;
+  box-shadow: 0 18px 40px -16px rgba(10, 20, 34, 0.55); display: grid; gap: 7px;
+  font-size: 0.72rem; color: var(--graphite);
+}
+.hp-title { font-family: var(--font-head); font-weight: 800; color: var(--navy); font-size: 0.78rem; margin-bottom: 2px; }
+.hp-row { display: grid; gap: 3px; }
+.hp-row i { display: block; height: 6px; border-radius: 3px; width: var(--w); background: var(--c); min-width: 18px; }
+.hp-foot { font-size: 0.62rem; color: var(--muted); font-style: italic; }
+@media (max-width: 959px) { .hero-portfolio { left: 10px; top: 10px; width: 180px; } }
+
+/* seção especialidade */
+.spec-grid { display: grid; gap: 44px; align-items: center; }
+@media (min-width: 960px) { .spec-grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 72px; } }
+.asset-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.asset-chips li {
+  padding: 8px 14px; border-radius: 999px; background: var(--off); border: 1px solid var(--line);
+  font-size: 0.88rem; font-weight: 600; color: var(--navy);
+}
+.not-box { margin-top: 26px; padding: 18px 20px; border-radius: var(--radius); border-left: 3px solid var(--gold); background: var(--off); }
+.not-box p { color: var(--muted); font-size: 0.95rem; }
+.not-box p + p { margin-top: 6px; }
+.not-box .not-title { font-family: var(--font-head); font-weight: 700; color: var(--navy); font-size: 1rem; }
+.not-box strong { color: var(--navy); }
+
+.portfolio-card {
+  margin: 0; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-lg);
+  padding: 26px; box-shadow: var(--shadow);
+}
+.portfolio-card figcaption strong { display: block; font-family: var(--font-head); color: var(--navy); font-size: 1.1rem; margin-top: 4px; }
+.pc-kicker { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-text); }
+.pc-body { display: grid; grid-template-columns: 140px 1fr; gap: 22px; align-items: center; margin-top: 20px; }
+.donut { width: 140px; height: 140px; }
+.pc-legend { display: grid; gap: 10px; }
+.pc-legend li { display: flex; align-items: center; gap: 10px; font-size: 0.92rem; color: var(--graphite); }
+.pc-legend i { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+.pc-legend b { margin-left: auto; font-family: var(--font-head); color: var(--navy); }
+.pc-review { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); }
+.pc-review ul { margin-top: 10px; display: grid; gap: 8px; }
+.pc-review li { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: var(--muted); }
+.tag { display: inline-block; min-width: 72px; text-align: center; padding: 4px 8px; border-radius: 6px; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
+.tag.buy { background: #e7f3ec; color: #1f6b43; }
+.tag.hold { background: #eef1f5; color: var(--navy-2); }
+.tag.sell { background: #f8ece9; color: #9a3b26; }
+.pc-note { margin-top: 18px; font-size: 0.76rem; color: var(--muted); font-style: italic; }
+@media (max-width: 420px) { .pc-body { grid-template-columns: 110px 1fr; gap: 16px; } .donut { width: 110px; height: 110px; } }
+.hero-portfolio { gap: 9px; width: 210px; }
+.hp-label { display: flex; justify-content: space-between; font-weight: 600; color: var(--graphite); }
+.hp-label b { font-family: var(--font-head); color: var(--navy); }
+.hp-track { display: block; height: 7px; border-radius: 4px; background: #eceff3; overflow: hidden; }
+.hp-track i { display: block; height: 100%; width: var(--w); background: var(--c); border-radius: 4px; }
+@media (max-width: 600px) {
+  .hero-portfolio { width: 150px; padding: 10px 11px 9px; gap: 6px; font-size: 0.64rem; left: 8px; top: 8px; }
+  .hp-title { font-size: 0.68rem; }
+  .hp-track { height: 5px; }
+  .hp-foot { font-size: 0.56rem; }
+}
