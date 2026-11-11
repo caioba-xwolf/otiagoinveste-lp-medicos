@@ -57,7 +57,7 @@
   /* ---------- CTA fixo no mobile ---------- */
   var sticky = document.getElementById("sticky-cta");
   var hero = document.getElementById("inicio");
-  var diag = document.getElementById("diagnostico");
+  var diag = document.getElementById("agendar");
   if (sticky && hero && diag && hasIO) {
     var heroVisible = true, diagVisible = false;
     var update = function () {
@@ -112,7 +112,7 @@
   form.addEventListener("focusin", function () {
     if (started) return;
     started = true;
-    track("form_start", { form_id: "diagnostico" });
+    track("form_start", { form_id: "cafe_digital" });
   });
 
   function setError(key, msg) {
@@ -173,7 +173,7 @@
     var firstKey = Object.keys(fields).find(function (k) { return errors[k]; });
     if (firstKey) {
       fields[firstKey].el.focus();
-      track("form_error", { form_id: "diagnostico", field: firstKey });
+      track("form_error", { form_id: "cafe_digital", field: firstKey });
       return;
     }
 
@@ -188,7 +188,7 @@
       email: fields.email.el.value.trim(),
       telefone: tel,
       whatsapp: tel,
-      especialidade: $("f-esp").value.trim(),
+      especialidade: $("f-esp") ? $("f-esp").value.trim() : "",
       patrimonio_investido: fields.patrimonio_investido.el.value,
       objetivo: fields.objetivo.el.value,
       pagina: window.location.pathname.replace(/\/$/, "") || "/",
@@ -209,7 +209,7 @@
     }
 
     setLoading(true);
-    track("form_submit_attempt", { form_id: "diagnostico" });
+    track("form_submit_attempt", { form_id: "cafe_digital" });
 
     var ctrl = "AbortController" in window ? new AbortController() : null;
     var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 15000);
@@ -250,7 +250,7 @@
           ? "A conexão demorou mais que o esperado. Verifique sua internet e tente novamente."
           : (err && err.message) || "Não foi possível enviar seus dados. Tente novamente.";
         showAlert(msg);
-        track("form_submit_error", { form_id: "diagnostico", error: String(msg).slice(0, 100) });
+        track("form_submit_error", { form_id: "cafe_digital", error: String(msg).slice(0, 100) });
       });
   });
 })();

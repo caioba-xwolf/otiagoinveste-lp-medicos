@@ -933,3 +933,95 @@ html { scroll-padding-top: 88px; }
 
 /* performance: seções fora da tela não são calculadas até se aproximarem */
 main > section:not(.hero), .site-footer { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+
+/* =========================================================
+   v6 — Café Digital e narrativa em primeira pessoa
+   ========================================================= */
+.only-desktop-inline { display: none; }
+@media (min-width: 768px) { .only-desktop-inline { display: inline; } }
+
+/* convite do hero */
+.hero-invite {
+  margin-top: 26px; padding: 20px 20px 18px; border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(212, 191, 150, 0.28);
+}
+.hero-invite-title { display: flex; align-items: center; gap: 10px; font-family: var(--font-head); font-weight: 800; color: var(--white); font-size: 1.15rem; }
+.hero-invite-title svg { width: 24px; height: 24px; color: var(--gold-light); flex-shrink: 0; }
+.hero-invite-text { margin-top: 8px; color: rgba(255, 255, 255, 0.72); font-size: 0.96rem; }
+.hero-invite .btn { margin-top: 16px; }
+@media (max-width: 767px) { .hero-invite-text { display: none; } .hero-invite { margin-top: 20px; } }
+.hero .hero-sub strong { color: var(--white); }
+
+/* fechamento da seção carreira */
+.future-close { margin-top: 32px; max-width: 46rem; }
+
+/* recado do Tiago após o simulador */
+.sim-note {
+  margin-top: 22px; display: grid; gap: 16px; align-items: center;
+  padding: 22px; border-radius: var(--radius-lg); background: var(--navy); color: rgba(255, 255, 255, 0.85);
+}
+.sim-note img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; object-position: 50% 20%; border: 2px solid var(--gold-light); }
+.sim-note p { font-size: 1rem; line-height: 1.55; }
+.sim-note strong { color: var(--white); }
+.sim-note-sign { margin-top: 6px; font-size: 0.85rem; color: var(--gold-light); font-weight: 700; }
+@media (min-width: 900px) { .sim-note { grid-template-columns: 64px 1fr auto; gap: 22px; padding: 24px 28px; } }
+
+/* você não está sozinho */
+.solo-grid { display: grid; gap: 40px; align-items: center; }
+@media (min-width: 960px) { .solo-grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 72px; } }
+.solo-body { margin-top: 22px; display: grid; gap: 14px; color: rgba(255, 255, 255, 0.78); font-size: 1.04rem; }
+.solo-card { padding: 28px 26px; border-radius: var(--radius-lg); background: rgba(255, 255, 255, 0.04); border: 1px solid var(--line-light); }
+.solo-card .tagline { font-size: clamp(1.15rem, 2.2vw, 1.4rem); margin-top: 22px; }
+
+/* carteira: escopo */
+.cart-scope { margin-top: 18px; padding: 14px 16px; border-left: 3px solid var(--gold); background: var(--white); border-radius: 0 10px 10px 0; font-size: 0.92rem; color: var(--muted); }
+.cart-scope strong { color: var(--navy); }
+
+/* acompanhamento: comparativo Café × Consultoria */
+.acomp-side { display: grid; gap: 16px; }
+.diff-box { display: grid; gap: 1px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line-light); }
+.diff-box p { display: grid; gap: 2px; padding: 14px 16px; background: rgba(255, 255, 255, 0.05); color: rgba(255, 255, 255, 0.78); font-size: 0.92rem; }
+.diff-k { font-family: var(--font-head); font-weight: 800; color: var(--gold-light); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* Café Digital */
+.cafe-head { max-width: 50rem; margin: 0 auto; text-align: center; }
+.cafe-head .lead { margin-left: auto; margin-right: auto; }
+.cafe-head .eyebrow::after { content: ""; width: 24px; height: 1px; background: currentColor; }
+.cafe-seal { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 18px; padding: 6px 16px 6px 6px; border-radius: 999px; background: var(--white); border: 1px solid var(--line); box-shadow: var(--shadow); }
+.cafe-seal img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; object-position: 50% 15%; }
+.cafe-seal span { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-head); font-weight: 700; color: var(--navy); font-size: 0.9rem; }
+.cafe-seal svg { width: 20px; height: 20px; color: var(--gold-text); }
+.cafe-steps { margin-top: 40px; display: grid; gap: 16px; }
+@media (min-width: 900px) { .cafe-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; } }
+.cafe-steps li { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 26px 24px; box-shadow: var(--shadow); }
+.cs-num { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--navy); color: var(--gold-light); font-family: var(--font-head); font-weight: 800; }
+.cafe-steps h3 { margin-top: 16px; font-size: 1.2rem; }
+.cafe-steps p { margin-top: 8px; color: var(--muted); font-size: 0.97rem; }
+.cafe-cta { margin-top: 36px; text-align: center; }
+.cafe-micro { margin-top: 12px; font-weight: 700; color: var(--navy); font-size: 0.9rem; letter-spacing: 0.02em; }
+.cafe-note { margin: 14px auto 0; max-width: 40rem; font-size: 0.82rem; color: var(--muted); }
+
+/* formulário */
+.diag-steps-title { margin-top: 28px; color: var(--white); font-family: var(--font-head); font-weight: 700; }
+.diag .diag-list { margin-top: 12px; }
+
+/* hero compacto no desktop: CTA visível na primeira dobra */
+@media (min-width: 960px) {
+  .hero { padding: 44px 0 72px; }
+  .hero h1 { font-size: clamp(2.2rem, 3.4vw, 2.75rem); margin-top: 14px; }
+  .hero-sub { font-size: 1.02rem; margin-top: 14px; }
+  .hero-sub + .hero-sub { margin-top: 10px; }
+  .hero-invite { margin-top: 20px; padding: 16px 18px 14px; }
+  .hero-invite-title { font-size: 1.05rem; }
+  .hero-invite-text { font-size: 0.9rem; margin-top: 6px; }
+  .hero-invite .btn { margin-top: 12px; }
+  .hero-invite .micro { margin-top: 8px; }
+}
+
+/* hero compacto no mobile: CTA na primeira tela */
+@media (max-width: 767px) {
+  .hero { padding-top: 26px; }
+  .hero h1 { font-size: 1.72rem; margin-top: 12px; }
+  .hero-sub { font-size: 0.98rem; margin-top: 14px; }
+  .hero-invite { padding: 16px 16px 14px; }
+}
