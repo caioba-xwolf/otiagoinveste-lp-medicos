@@ -64,6 +64,7 @@
     var chartEl = $("sim-chart"), tip = $("sim-tip");
     var interacted = false;
     var state = { P: 100000, aporte: 3000, anos: 20, taxa: 0.08, inflacao: 0.04, real: false };
+    var ready = false;
     var last = null, hoverYear = null, raf = 0;
 
     function clamp(v, a, b) { return Math.min(b, Math.max(a, v)); }
@@ -128,7 +129,7 @@
     // Renderiza no próximo quadro; o timer garante a atualização mesmo se
     // o navegador pausar requestAnimationFrame (aba em segundo plano etc.).
     function schedule() {
-      if (raf) return;
+      if (!ready || raf) return;
       raf = 1;
       var done = false;
       var go = function () { if (done) return; done = true; raf = 0; render(); };
@@ -258,16 +259,30 @@
     });
     chartEl.addEventListener("blur", hideTip);
 
-    if ("ResizeObserver" in window) {
-      var lastW = 0;
-      new ResizeObserver(function () {
-        var w = chartEl.clientWidth;
-        if (Math.abs(w - lastW) > 2) { lastW = w; schedule(); }
-      }).observe(chartEl);
-    } else {
-      window.addEventListener("resize", schedule);
+    // Só calcula e desenha quando o simulador se aproxima da tela
+    // (evita trabalho na thread principal durante o carregamento).
+    function start() {
+      if (ready) return;
+      ready = true;
+      render();
+      if ("ResizeObserver" in window) {
+        var lastW = chartEl.clientWidth;
+        new ResizeObserver(function () {
+          var w = chartEl.clientWidth;
+          if (Math.abs(w - lastW) > 2) { lastW = w; schedule(); }
+        }).observe(chartEl);
+      } else {
+        window.addEventListener("resize", schedule);
+      }
     }
-    render();
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (en) {
+        if (en[0].isIntersecting) { io.disconnect(); start(); }
+      }, { rootMargin: "600px 0px" });
+      io.observe(root);
+    } else {
+      start();
+    }
   }
 
   /* ---------------- Carteira ilustrativa ---------------- */

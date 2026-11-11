@@ -68,7 +68,7 @@ h1, h2, h3, h4 {
   font-weight: 700;
   text-wrap: balance;
 }
-p { margin: 0; text-wrap: pretty; }
+p { margin: 0; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
 
 :focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
@@ -923,3 +923,10 @@ html { scroll-padding-top: 88px; }
 /* cartão da carteira no hero: abaixo do rosto */
 .hero-portfolio { top: auto; bottom: 96px; }
 @media (max-width: 959px) { .hero-portfolio { top: auto; bottom: 88px; } }
+
+/* performance: sem desfoque (backdrop-filter) no mobile; fundo sólido */
+@media (max-width: 767px) {
+  .site-header { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(16, 29, 48, 0.98); }
+  .sticky-cta { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(10, 20, 34, 0.98); }
+}
+.site-header, .hero-portfolio { contain: layout; }
