@@ -1,0 +1,162 @@
+# Nova LP — Tiago Lopes · Planejamento patrimonial para médicos
+
+Pasta: `nova-lp/`. É uma página estática, sem framework e sem build. Para publicar, suba o conteúdo da pasta para a raiz do domínio.
+
+```
+nova-lp/
+├── index.html              ← landing page
+├── obrigado/index.html     ← confirmação pós-envio (único lugar onde o Lead dispara)
+├── privacidade/index.html  ← Aviso de Privacidade (RASCUNHO, precisa de dados reais)
+└── lp/
+    ├── tracking.js         ← CONFIGURAÇÃO CENTRAL + Meta Pixel / GA4 / GTM + UTMs
+    ├── app.js              ← formulário, eventos, CTA fixo, animações
+    ├── styles.css
+    ├── fonts/manrope-latin.woff2
+    └── img/ (fotos reais do Tiago, reaproveitadas do site atual)
+```
+
+---
+
+## A. Diagnóstico da página atual
+
+**Base analisada.** O diretório local é um espelho feito com HTTrack de `otiagoinveste.com`: um app React/Vite já compilado. O código-fonte não está aqui. A página tem as rotas `/`, `/medicos`, `/renda-passiva` e `/obrigado`.
+
+| Área | Problema |
+|---|---|
+| **Copy / posicionamento** | A headline ataca o assessor ("o conflito de interesse está fazendo você perder dinheiro"). Isso contraria a Big Idea e não combina com anúncios de organização e tempo. A promessa principal é "gerar mais renda todos os meses" e "reduzir plantões", o que vende abandono da medicina e renda passiva. |
+| **Compliance** | O FAQ afirma que, "por dentro da metodologia… não há como se perder dinheiro". Também diz que o cliente que segue o assessor "já está perdendo dinheiro". Há credenciais "CVM · CEA/ANBIMA" sem detalhamento. A bio tem uma narrativa de enriquecimento ("liberdade financeira aos 36", "terça-feira na praia"). Não há aviso de risco. |
+| **Hierarquia** | São só 4 blocos (hero → lista → método → bio → FAQ). Faltam conexão com a rotina médica, problema, como funciona o acompanhamento, benefícios e a diferença entre a conversa gratuita e o programa pago. O método aparece em uma linha por etapa. |
+| **Credibilidade** | Não há provas. O FAQ trata de temas genéricos (poupança, dólar) e não das objeções do médico (tempo, transferência de investimentos, custo). |
+| **Mobile** | O hero junta H1, subtítulo e parágrafo, e o CTA fica longe. O formulário está em um modal, que é pior no mobile do que um formulário inline. |
+| **Conversão** | Todos os CTAs abrem o mesmo modal. Só existem 4 faixas de patrimônio e nenhuma pergunta de objetivo, então a qualificação do lead é fraca. Também não fica claro o que acontece depois do envio. |
+| **Performance** | O bundle JS tem 202 KB, mais 43 KB de CSS e 3 famílias de fontes (Fraunces, Bricolage, Manrope) em vários subsets. O React faz hidratação completa de uma página que é praticamente estática. |
+| **Tracking** | **O Lead do Meta dispara em qualquer visita a `/obrigado`**, inclusive acesso direto, recarregamento e bots, o que gera conversões falsas. Não há GA4/GTM, nem `eventID` para deduplicação, nem eventos de clique ou de início de formulário. As UTMs só são lidas da URL no momento do envio. |
+| **Segurança** | O front envia o e-mail de destino (`email_cliente`) no payload para o `enviar-lead.php`. Se o PHP usar esse campo como destinatário, qualquer pessoa pode usar o endpoint para disparar e-mails (*open relay*). |
+
+---
+
+## B/C. Nova landing page — estrutura final (v2: mais simples, vendendo futuro)
+
+Na v2, a página passou de 13 para 9 seções. A pergunta central agora é: **para que serve construir patrimônio?** A resposta da página é liberdade, família, aposentadoria no seu tempo e dormir tranquilo.
+
+| # | Seção | Etapa psicológica |
+|---|---|---|
+| — | Header fixo (Seu futuro · Como funciona · Quem é Tiago · Dúvidas · CTA) | — |
+| 1 | **Hero**: "**Médico(a)**, você ganha bem hoje. Mas o que vai sustentar a sua vida quando você parar?", com foto de pai e filho na praia e selo do Tiago | Identificação |
+| 2 | "Na medicina, a renda depende das suas horas. Quando você para, ela para." Comparação Hoje → Sem um plano → Com um plano | Reconhecimento |
+| 3 | **O futuro**: galeria com 5 fotos (aposentar quando decidir, férias com a família, presença com os filhos, morar fora, dormir tranquilo) | Desejo |
+| 4 | Método M.A.P.A. em linguagem simples ("Você não precisa virar especialista") | Oportunidade |
+| 5 | **Histórias de médicos**, sinalizadas como ilustrativas (Dr. R. 52, Dra. C. 38, Dr. M. 45) e o que um plano muda em cada caso | Identificação / confiança |
+| 6 | Tiago Lopes: bio curta e credenciais | Confiança |
+| 7 | Conversa gratuita + formulário (objetivos novos: aposentadoria, reduzir ritmo, família, morar fora…) | Ação |
+| 8 | FAQ enxuto (5 perguntas) | Confiança |
+| 9 | CTA final com foto de família ao pôr do sol: "Você já construiu a sua carreira. Agora, construa a sua liberdade." | Ação |
+
+**Regra de copy:** toda headline abre com **"Médico(a)"**, inclusive as variantes A/B.
+
+**Depoimentos.** Não há depoimentos inventados. A seção 5 usa personas **explicitamente sinalizadas** como ilustrativas, na página e no rodapé, porque depoimento fictício apresentado como real é publicidade enganosa (CDC/CONAR). Também aumenta o risco de reprovação dos anúncios no Meta. O modelo de bloco `.testimonial` para depoimentos **reais e autorizados** está comentado no HTML. Coletar 2–3 depoimentos com o Tiago é o próximo passo de maior impacto em conversão.
+
+**Imagens.** As fotos de estilo de vida vêm do Unsplash (licença gratuita para uso comercial) e são carregadas direto do CDN `images.unsplash.com`, já em formato otimizado (`auto=format`). Para produção, recomendo baixá-las e servi-las do próprio domínio, em WebP, o que melhora o LCP do hero no mobile. As fotos do Tiago são as reais do site atual.
+
+**Ajustes visuais**
+- Paleta navy `#101D30`, `#263D58`, off-white, grafite e dourado `#B69B69`. Para texto pequeno sobre fundo claro, a variante `#7D6539` tem contraste AA.
+- Fontes: Manrope (self-hosted, já existia no site) nos títulos e Inter/fonte do sistema no corpo, sem download extra.
+- Seções alternando claro e escuro, ícones de traço consistentes (sprite SVG inline), cards discretos e animações de entrada suaves que respeitam `prefers-reduced-motion`.
+- Hero: a foto do Tiago no escritório (navy, luz natural) fica no hero. O retrato em estúdio fica na seção de autoridade.
+
+---
+
+## D. Integrações
+
+| Item | Status | O que é necessário |
+|---|---|---|
+| Formulário → `/enviar-lead.php` | **Preservado** (mesmo endpoint e mesmos campos-base) | Validar que o PHP aceita os campos novos (abaixo) e responde JSON `{status: "ok"}` ou `{status:"erro", mensagem}`. |
+| Meta Pixel `1028082333350113` | **Preservado** (o `src` do snippet foi corrigido para `https://connect.facebook.net/...`) | — |
+| GA4 | Pronto, desligado | Informar `ga4Id` em `lp/tracking.js`. |
+| GTM | Pronto, desligado | Informar `gtmId`. Se o GA4 for configurado via GTM, deixe `ga4Id` vazio. |
+| WhatsApp | Pronto, desligado | `whatsappNumero` (só dígitos, com 55). O botão aparece em `/obrigado/`. |
+| Agenda (Calendly etc.) | Pronta, desligada | `agendaUrl`. O botão "Escolher um horário agora" aparece em `/obrigado/`. |
+| CRM | Não existe hoje | Pode ser plugado no próprio `enviar-lead.php` ou via GTM. Todos os dados de atribuição já vão no payload. |
+
+**Payload enviado** (os campos novos estão em negrito):
+`nome, email, telefone, `**`whatsapp, especialidade, objetivo`**`, patrimonio_investido, pagina, `**`variante_hero, data_hora_conversao, data_hora_local, event_id`**`, utm_source, utm_medium, utm_campaign, utm_content, utm_term, `**`utm_id, fbclid, gclid, ad_id, adset_id, campaign_id, landing_page, referrer`**`, email_cliente, assunto_email, from_name`.
+
+> As faixas de patrimônio mudaram de 4 para 7 opções, com novos textos. Se o PHP ou alguma planilha filtra por valor exato, ajuste esse filtro.
+
+---
+
+## E. Verificações realizadas (servidor local, Chrome)
+
+- **Responsividade:** sem rolagem horizontal em 375 px e 1366 px. No mobile, o H1 e o CTA do hero ficam acima da dobra. O CTA fixo aparece depois do hero e some quando o formulário está visível.
+- **Formulário (v2):** se o visitante enviar antes de o JS carregar, os dados não vão mais para a URL (corrigido com `method=post` e bloqueio até o script assumir).
+- **Formulário:** com campos vazios, aparecem 5 mensagens e o foco vai para o primeiro erro. A máscara de telefone funciona (`(48) 9 9999-8888`). Erro do servidor gera alerta, reativa o botão e não grava a marca de Lead. Envio com sucesso redireciona para `/obrigado/`.
+- **Tracking:**
+  - Com envio válido, `/obrigado/` disparou **1 Lead** com `eventID` igual ao `event_id` do payload.
+  - Recarregar `/obrigado/` disparou **apenas PageView**.
+  - `?hv=b` trocou a headline e gravou `variante_hero: "b"` no payload, junto com as UTMs.
+  - ⚠️ Esse teste enviou **1 evento Lead real** ao Pixel, com origem `localhost`. Ele pode aparecer no Gerenciador de Eventos.
+- **Peso:** HTML + CSS + JS somam cerca de 23 KB comprimidos (gzip), contra cerca de 245 KB sem compressão no site atual. Há uma fonte de 25 KB e a imagem do hero tem 37 KB. Não há framework, autoplay ou biblioteca externa além do Pixel.
+- **Acessibilidade:** skip link, foco visível, labels em todos os campos, `aria-invalid` e mensagens com `aria-live`, FAQ nativo e contraste AA nos textos.
+- **SEO:** title e description novos, canonical, Open Graph, JSON-LD `ProfessionalService`. `/obrigado/` e `/privacidade/` estão com `noindex`.
+- **Não verificado:** Core Web Vitals em produção (LCP, INP, CLS). Medir com PageSpeed Insights depois de publicar. O envio real ao PHP também não foi testado, porque o PHP não está no espelho.
+
+---
+
+## F. Eventos de tracking implementados
+
+| Evento | Onde dispara | Meta | GA4/dataLayer |
+|---|---|---|---|
+| PageView | carregamento de qualquer página | `PageView` | page_view (automático do GA4) |
+| Visualizou o Método | seção `#metodo` 35% visível, uma vez | `ViewContent` | `view_metodo` |
+| Clique em CTA | qualquer `[data-cta]` (header, hero, abordagem_metodo, autoridade, final, sticky_mobile) | — | `cta_click` |
+| Início de formulário | primeiro foco no formulário | — | `form_start` |
+| Erro de validação | envio com campo inválido | — | `form_error` |
+| Tentativa de envio | antes do POST | — | `form_submit_attempt` |
+| Falha no envio | resposta de erro ou timeout de 15 s | — | `form_submit_error` |
+| **Lead** | **só em `/obrigado/`, só se houve POST com sucesso na mesma sessão, uma única vez, com a marca válida por até 10 min** | `Lead` + `eventID` | `generate_lead` |
+| Abrir agenda | clique em "Escolher um horário" (se configurado) | — | `agenda_open` |
+| Clique no WhatsApp | clique em "Falar pelo WhatsApp" (se configurado) | `WhatsAppClick` (custom) | `whatsapp_click` |
+
+**Não implementados de propósito:** `Schedule`, porque só deve vir de uma integração da agenda que confirme o horário (webhook do Calendly ou CAPI). `Contact`, porque clicar no wa.me não comprova contato. O `event_id` do payload permite enviar o mesmo Lead pela API de Conversões (CAPI) com deduplicação.
+
+---
+
+## G. Pendências de validação (bloqueiam a publicação)
+
+1. **Credenciais.** O site atual diz "Consultor de investimentos certificado (CVM, CEA/ANBIMA)". A nova LP mostra só **"Certificação CEA · ANBIMA"** no hero e na seção de autoridade, marcada com `<!-- VALIDAR -->`. Confirmar se a certificação está ativa e se existe registro na CVM, com categoria e número. Só depois disso mencionar a CVM. A CEA não autoriza consultoria de valores mobiliários.
+2. **Natureza do serviço.** Definir se é consultoria, educação financeira ou mentoria e ajustar termos como "recomendações" (seção 6 e FAQ). A página evita falar em gestão e diz que o cliente executa as próprias decisões.
+3. **Entregas do acompanhamento.** A página cita só "aproximadamente 12 meses" e "revisões e orientações ao longo do período". Confirmar com o Tiago antes de detalhar frequência e canais.
+4. **`enviar-lead.php`.**
+   - (a) Aceitar e repassar os campos novos.
+   - (b) **Fixar o destinatário no servidor e ignorar `email_cliente`**, por segurança.
+   - (c) Validar e limitar a taxa de envios no servidor.
+   - (d) Rejeitar envios com o campo `website` preenchido (honeypot).
+5. **Aviso de Privacidade.** Preencher os trechos em amarelo (controlador, CNPJ, e-mail de contato, prazo de retenção) e passar por revisão jurídica.
+6. **Revisão regulatória** de toda a copy e do aviso de risco no rodapé.
+7. **Rotas antigas.** `/medicos` e `/renda-passiva` dependem do bundle React antigo (`assets/`). Se a nova `index.html` substituir a raiz e o servidor tiver fallback de SPA, essas rotas passam a mostrar a nova página. Decidir entre redirecionar (301 para `/`) ou manter os arquivos antigos.
+8. **Provas reais.** Coletar depoimentos autorizados (modelo `.testimonial` comentado na seção 5) e gravar o vídeo de 60–90 s.
+10. **Fotos.** Baixar as imagens do Unsplash e servir do próprio domínio (performance).
+9. Preencher `ga4Id`/`gtmId`, `whatsappNumero` e `agendaUrl`, se existirem.
+
+---
+
+## H. Recomendações de testes A/B
+
+Use `?hv=` na URL de cada anúncio. A variante fica salva na sessão e vai no payload (`variante_hero`), então dá para cruzar com a qualidade do lead.
+
+| Anúncio | URL | Headline |
+|---|---|---|
+| Controle — Futuro | `/` | "Médico(a), você ganha bem hoje. Mas o que vai sustentar a sua vida quando você parar?" |
+| A — Carreira | `/?hv=a` | "Médico(a), você cuida da saúde dos seus pacientes. Quem está cuidando do seu futuro?" |
+| B — Tempo | `/?hv=b` | "Médico(a), sua agenda já é cheia. Seu futuro não precisa ser mais uma preocupação." |
+| C — Liberdade | `/?hv=c` | "Médico(a), até quando a sua vida vai depender do próximo plantão?" |
+| D — Planejamento | `/?hv=d` | "Médico(a), ganhar bem é importante. Transformar renda em liberdade exige um plano." |
+
+Ordem sugerida, um teste por vez, até ter volume suficiente:
+1. Headline: controle × A (mesmo anúncio de carreira).
+2. Rótulo do CTA: "Quero planejar meu futuro" × "Quero minha conversa gratuita".
+3. Formulário: 6 campos × 4 campos (sem especialidade e objetivo). Medir **taxa de comparecimento e de venda**, não só cadastros.
+4. Prova: histórias ilustrativas × depoimentos reais, quando existirem, e o vídeo do Tiago.
+5. Foto do hero: família (atual) × Tiago no escritório.
+
+Métrica principal: **custo por reunião realizada** e taxa de venda por faixa de patrimônio, não o custo por lead.
