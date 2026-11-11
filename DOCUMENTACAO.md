@@ -35,7 +35,20 @@ nova-lp/
 
 **Atenção — compliance:** a página agora afirma "consultor de investimentos registrado na CVM" e "investidor profissional". Antes de publicar no domínio oficial, confirmar a categoria exata do registro (consultor de valores mobiliários) e, se quiser exibir, o número ou o ato declaratório. A promessa de "diagnóstico da carteira" precisa corresponder ao que o Tiago faz na call.
 
-**Áudios do Tiago:** não foram ouvidos, porque não havia ferramenta de transcrição na máquina. Se trouxerem algo além do texto, falta incorporar.
+## Versão 4 — áudios do Tiago
+
+Os áudios foram transcritos localmente com faster-whisper. Resumo do que ele pediu:
+- A página falava muito em "patrimônio" e pouco em "investimentos". O médico poderia achar que ele é advogado tributarista ou que trabalha com holding e imóveis.
+- Ele sugeriu mostrar uma carteira montada, com % em renda fixa, % em renda variável etc.
+- Analogia do cardiologista: deixar claro qual é a especialidade, para não atrair o caso errado.
+
+O que mudou:
+- Nova seção **"A especialidade do Tiago"**, logo após o topo: "Consultoria de investimentos. É exatamente isso que ele faz." Ela traz as classes de ativos (renda fixa, Tesouro, CDB/LCI/LCA, ações, FIIs, fundos, exterior) e um bloco **"O que a consultoria não é"** (advocacia, holding, tributário, sucessório, imobiliário).
+- **Carteira de exemplo**: gráfico de rosca (40% renda fixa, 25% ações, 20% FIIs, 15% exterior) e a revisão "comprar / manter / vender". Tudo marcado como *exemplo ilustrativo, não é recomendação*.
+- **Cartão de carteira sobre a foto do topo**, para o assunto ficar claro na primeira tela.
+- "Patrimônio" foi trocado por "investimentos" ou "carteira" em quase todo o texto. Ficou apenas no rodapé legal.
+- Menu com o novo item "Investimentos".
+- **Cripto ficou de fora** das classes de ativos. Incluir se o Tiago trabalhar com isso.
 
 ---
 
