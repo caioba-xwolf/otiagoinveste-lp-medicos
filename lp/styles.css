@@ -1029,3 +1029,7 @@ main > section:not(.hero), .site-footer { content-visibility: auto; contain-intr
 /* legenda do gráfico com fundo explícito (contraste estável em qualquer verificação) */
 .sim-legend { background: var(--white); color: #4a5462; }
 .sim-results { background: var(--white); }
+
+/* apresentação do Tiago na seção "você não está sozinho" */
+.solo-intro { font-size: 1.1rem; color: rgba(255, 255, 255, 0.9); padding-bottom: 14px; border-bottom: 1px solid var(--line-light); }
+.solo-intro strong { color: var(--white); }

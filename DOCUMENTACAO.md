@@ -25,7 +25,7 @@ nova-lp/
 ### Estrutura final
 | # | Seção (id) | Headline | Função |
 |---|---|---|---|
-| 1 | Hero (`inicio`) | Você dedicou anos para cuidar de outras pessoas. E quem está cuidando dos seus investimentos? | Identificação + convite |
+| 1 | Hero (`inicio`) | Médico(a), você dedicou anos para cuidar de outras pessoas. E quem está cuidando dos seus investimentos? | Identificação + convite |
 | 2 | Carreira e futuro (`futuro`) | Sua carreira foi construída com dedicação. Sua liberdade financeira também precisa de planejamento. | Conexão emocional |
 | 3 | Problema (`problema`) | Ganhar bem não é a mesma coisa que investir bem. | Consciência |
 | 4 | Simulador (`simulador`) | Quanto seus investimentos podem representar no futuro? (+ recado do Tiago e CTA) | Visualização |
@@ -41,7 +41,7 @@ nova-lp/
 
 ### Copy
 - Narrativa em **primeira pessoa** (o Tiago falando com o médico). A terceira pessoa ficou só nas credenciais, nos avisos legais e no rodapé.
-- **"Médico(a)"** aparece só no CTA final. O hero identifica o público pelo eyebrow ("consultoria de investimentos para médicos") e pelas situações da rotina (plantões, consultório, pacientes).
+- **"Médico(a)"** aparece na headline do hero e no CTA final. A apresentação "Eu sou Tiago Lopes…" fica na seção 5 (topo mais limpo). O hero identifica o público pelo eyebrow ("consultoria de investimentos para médicos") e pelas situações da rotina (plantões, consultório, pacientes).
 - Diferença explícita entre **Café Digital** (conversa inicial gratuita, diagnóstico e direcionamento) e **Consultoria** (acompanhamento contratado por cerca de 12 meses), na seção 8, na seção 10 e no FAQ.
 - A página de obrigado diz "Recebi suas informações. Agora vamos organizar os próximos passos para o nosso Café Digital" e deixa claro que ele **ainda não está agendado** (o contato é feito pelo WhatsApp).
 - Escopo: "Aqui o assunto é um só: investimentos. Não trabalho com holding, planejamento tributário, sucessório ou imobiliário."
