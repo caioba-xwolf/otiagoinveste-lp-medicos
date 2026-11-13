@@ -35,6 +35,8 @@ nova-lp/
 
 Novo evento: `simulator_compare` (`com_metodo` / `sem_metodo`).
 
+**Atualização:** o seletor de rentabilidade foi removido a pedido. A taxa é **fixa em 10% a.a. nos dois cenários** ("Compare os caminhos, com a mesma taxa de 10% ao ano"). O código do seletor continua no `simulador.js`, protegido, caso queiram reativá-lo.
+
 **Testes executados:**
 - Node: 7/7.
 - Navegador: eixo fixo em R$ 3,2 mi nas três taxas, com a curva subindo; cards, diferença e destaque funcionando; inflação mexendo só no dinheiro parado; sem erros no console; mobile sem estouro, com os cards empilhados.

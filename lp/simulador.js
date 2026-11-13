@@ -64,7 +64,7 @@
     var chartEl = $("sim-chart"), tip = $("sim-tip");
     var cmpBtns = root.querySelectorAll(".cmp");
     var interacted = false;
-    var state = { P: 100000, aporte: 3000, anos: 20, taxa: 0.08, inflacao: 0.04 };
+    var state = { P: 100000, aporte: 3000, anos: 20, taxa: 0.10, inflacao: 0.04 };
     var ready = false;
     var last = null, hoverYear = null, raf = 0;
 
@@ -99,18 +99,21 @@
       schedule();
     });
 
+    // Seletor de taxa (opcional): a página atual usa taxa fixa de 10% a.a.
     function setRate(pct, fromInput) {
       var v = parseFloat(String(pct).replace(",", "."));
       if (!isFinite(v)) return;
       v = clamp(v, 0, 30);
       state.taxa = v / 100;
-      if (!fromInput) inR.value = String(v);
+      if (!fromInput && inR) inR.value = String(v);
       chips.forEach(function (c) { c.setAttribute("aria-pressed", String(+c.dataset.rate === v)); });
       schedule();
     }
     chips.forEach(function (c) { c.addEventListener("click", function () { setRate(c.dataset.rate); }); });
-    inR.addEventListener("input", function () { if (inR.value !== "") setRate(inR.value, true); });
-    inR.addEventListener("blur", function () { inR.value = String(+(state.taxa * 100).toFixed(2)); });
+    if (inR) {
+      inR.addEventListener("input", function () { if (inR.value !== "") setRate(inR.value, true); });
+      inR.addEventListener("blur", function () { inR.value = String(+(state.taxa * 100).toFixed(2)); });
+    }
 
     // Comparação: destaca a curva "Sem método" ou "Com o Método M.A.P.A."
     cmpBtns.forEach(function (b) {
