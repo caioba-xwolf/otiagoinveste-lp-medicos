@@ -132,7 +132,6 @@
             <span class="hp-row"><span class="hp-label">Ações<b>25%</b></span><span class="hp-track"><i style="--w:25%;--c:var(--gold)"></i></span></span>
             <span class="hp-row"><span class="hp-label">Fundos imobiliários<b>15%</b></span><span class="hp-track"><i style="--w:15%;--c:var(--navy-2)"></i></span></span>
             <span class="hp-row"><span class="hp-label">Internacional<b>10%</b></span><span class="hp-track"><i style="--w:10%;--c:#8fa3b8"></i></span></span>
-            <span class="hp-foot">Exemplo demonstrativo</span>
           </div>
         </figure>
       </div>
@@ -166,7 +165,7 @@
           </li>
           <li class="future-card reveal">
             <img src="https://images.unsplash.com/photo-1528256507509-cc4facea43f6?auto=format&fit=crop&w=700&h=520&q=70" alt="Pai brincando com o filho ao pôr do sol" width="700" height="520" loading="lazy" decoding="async" />
-            <div class="future-text"><h3>Mais tranquilidade</h3><p>Saber que existe um plano para você e para a sua família.</p></div>
+            <div class="future-text"><h3>Mais tranquilidade</h3><p>Saber que existe um plano para seus investimentos cobrirem suas despesas.</p></div>
           </li>
         </ul>
         <p class="statement future-close reveal">É para ajudar a construir esse futuro que <span class="gold">seus investimentos precisam de uma estratégia.</span></p>
@@ -216,7 +215,8 @@
         <div class="section-head reveal">
           <p class="eyebrow">Simulador de investimentos</p>
           <h2 class="h-section" id="s-sim-title">Quanto seus investimentos podem representar no futuro?</h2>
-          <p class="lead">Faça uma simulação e visualize como o tempo e os aportes regulares podem influenciar o crescimento do seu patrimônio. A simulação é ilustrativa e não representa promessa de rentabilidade.</p>
+          <p class="lead">Faça uma simulação e visualize como o tempo e os aportes regulares podem influenciar o crescimento do seu patrimônio.</p>
+          <p class="sim-lead-note">A simulação é ilustrativa e não representa promessa de rentabilidade.</p>
         </div>
 
         <div class="sim reveal" id="sim">
@@ -247,7 +247,7 @@
             </div>
 
             <fieldset class="sim-field sim-rates">
-              <legend>Rentabilidade hipotética anual</legend>
+              <legend>Rentabilidade anual considerada</legend>
               <div class="rate-chips" role="group" aria-label="Cenários de taxa">
                 <button type="button" class="rate-chip" data-rate="6" aria-pressed="false">6% a.a.</button>
                 <button type="button" class="rate-chip" data-rate="8" aria-pressed="true">8% a.a.</button>
@@ -258,19 +258,16 @@
                 <input id="sim-r" type="number" inputmode="decimal" min="0" max="30" step="0.1" value="8" />
                 <span class="suffix">% ao ano</span>
               </div>
-              <p class="sim-help">Hipótese matemática editável. Não é projeção de mercado nem resultado histórico do Tiago ou do Método M.A.P.A.</p>
+              <p class="sim-help">Taxa editável, a mesma nos dois cenários. Não é promessa nem resultado histórico do Tiago ou do Método M.A.P.A.</p>
             </fieldset>
 
             <div class="sim-field sim-infl">
-              <label class="switch">
-                <input type="checkbox" id="sim-infl-on" />
-                <span>Ver em valores de hoje (descontar inflação)</span>
-              </label>
-              <div class="sim-input-row small" id="sim-infl-row" hidden>
-                <label for="sim-infl" class="sr-only">Inflação anual hipotética</label>
-                <input id="sim-infl" type="number" inputmode="decimal" min="0" max="20" step="0.1" value="4" />
-                <span class="suffix">% de inflação ao ano</span>
+              <div class="sim-label-row"><label for="sim-infl">Inflação considerada</label></div>
+              <div class="sim-input-row small">
+                <input id="sim-infl" type="number" inputmode="decimal" min="0" max="20" step="0.1" value="4" aria-describedby="sim-infl-help" />
+                <span class="suffix">% ao ano</span>
               </div>
+              <p class="sim-help" id="sim-infl-help">Mostra quanto o dinheiro parado perde de poder de compra.</p>
             </div>
           </form>
 
@@ -278,21 +275,38 @@
             <div class="sim-stats" aria-live="polite" id="sim-stats">
               <div class="stat"><span>Patrimônio inicial</span><b id="st-p">—</b></div>
               <div class="stat"><span>Total de aportes</span><b id="st-a">—</b></div>
-              <div class="stat stat-main"><span>Valor final hipotético</span><b id="st-vf">—</b></div>
-              <div class="stat stat-gain"><span>Rendimentos hipotéticos</span><b id="st-g">—</b></div>
+              <div class="stat stat-main"><span>Valor final projetado</span><b id="st-vf">—</b></div>
+              <div class="stat stat-gain"><span>Rendimentos projetados</span><b id="st-g">—</b></div>
             </div>
-            <p class="sim-capital">Capital aportado (inicial + aportes): <b id="st-cap">—</b><span id="st-real-note" hidden> · valores de hoje</span></p>
+            <p class="sim-capital">Capital aportado (inicial + aportes): <b id="st-cap">—</b></p>
+
+            <div class="sim-compare">
+              <p class="cmp-title">Compare os caminhos, com a mesma taxa:</p>
+              <div class="cmp-row" role="group" aria-label="Destacar cenário no gráfico">
+                <button type="button" class="cmp cmp-sem" data-line="b" aria-pressed="false">
+                  <span class="cmp-k">Sem método</span>
+                  <b id="cmp-sem">—</b>
+                  <small>Só o valor inicial investido, sem novos aportes.</small>
+                </button>
+                <button type="button" class="cmp cmp-com" data-line="c" aria-pressed="true">
+                  <span class="cmp-k">Com o Método M.A.P.A.</span>
+                  <b id="cmp-com">—</b>
+                  <small>Valor inicial + aporte com regra todo mês, reinvestindo os rendimentos.</small>
+                </button>
+              </div>
+              <p class="cmp-diff">Diferença projetada: <b id="cmp-diff">—</b></p>
+            </div>
 
             <div class="sim-chart-wrap">
               <div class="sim-legend" aria-hidden="true">
-                <span><i class="lg-c"></i>Investindo com aportes mensais</span>
-                <span><i class="lg-b"></i>Investimento inicial, sem aportes</span>
-                <span><i class="lg-a"></i>Dinheiro sem remuneração</span>
+                <span><i class="lg-c"></i>Com o Método M.A.P.A.</span>
+                <span><i class="lg-b"></i>Sem método</span>
+                <span><i class="lg-a"></i>Dinheiro parado (poder de compra)</span>
               </div>
-              <div class="sim-chart" id="sim-chart" role="img" aria-label="Gráfico da evolução hipotética do patrimônio"></div>
+              <div class="sim-chart" id="sim-chart" role="img" aria-label="Gráfico da evolução projetada do patrimônio" data-focus="c"></div>
               <div class="sim-tip" id="sim-tip" hidden></div>
             </div>
-            <p class="sim-disclaimer">Simulação matemática com taxa constante hipotética, sem considerar impostos, taxas, inflação ou oscilações de mercado. Resultados reais podem ser diferentes e investimentos envolvem riscos.</p>
+            <p class="sim-disclaimer">Projeção matemática com taxa constante, sem considerar impostos, taxas ou oscilações de mercado. Os dois cenários usam a mesma taxa: a diferença vem dos aportes e do reinvestimento. Não é promessa de rentabilidade — resultados reais podem ser diferentes e investimentos envolvem riscos.</p>
           </div>
         </div>
 
@@ -316,14 +330,14 @@
           <div class="solo-body">
             <p class="solo-intro">Eu sou <strong>Tiago Lopes</strong>, consultor de investimentos, e ajudo médicos a montar e acompanhar suas carteiras, com explicações simples e orientação individual. <strong>Você não precisa dominar o mercado financeiro: eu ajudo você a compreender cada etapa.</strong></p>
             <p>Eu sei que sua rotina pode ser imprevisível. Existem plantões que se estendem, atendimentos que atrasam e dias em que simplesmente não sobra tempo para acompanhar o mercado.</p>
-            <p>Por isso, meu trabalho é ajudar você a construir uma carteira de investimentos compatível com a sua realidade. Eu explico as recomendações, ajudo você a compreender suas alternativas e acompanho os ajustes necessários.</p>
-            <p>Se você não souber como implementar uma recomendação, eu oriento você durante o processo.</p>
+            <p>Por isso, meu trabalho é ajudar você a construir uma carteira de investimentos compatível com a sua realidade. Eu explico todas as orientações, ajudo você a compreender suas alternativas e acompanho os ajustes necessários.</p>
+            <p>Se você não souber como executar alguma operação, eu oriento você durante o processo.</p>
           </div>
         </div>
         <div class="solo-card reveal">
           <ul class="checklist">
             <li><span class="check" aria-hidden="true"><svg><use href="#i-check"/></svg></span>Uma carteira pensada para os seus objetivos.</li>
-            <li><span class="check" aria-hidden="true"><svg><use href="#i-check"/></svg></span>Cada recomendação explicada em linguagem simples.</li>
+            <li><span class="check" aria-hidden="true"><svg><use href="#i-check"/></svg></span>Cada orientação explicada em linguagem simples.</li>
             <li><span class="check" aria-hidden="true"><svg><use href="#i-check"/></svg></span>Orientação prática para implementar as decisões.</li>
             <li><span class="check" aria-hidden="true"><svg><use href="#i-check"/></svg></span>Acompanhamento e ajustes ao longo do caminho.</li>
           </ul>
@@ -358,13 +372,13 @@
             <span class="mapa-letter" aria-hidden="true">P</span>
             <div class="mapa-top"><span class="mapa-num">PORTFÓLIO INTELIGENTE</span><svg aria-hidden="true"><use href="#i-layers"/></svg></div>
             <h3>Uma carteira construída para seus objetivos</h3>
-            <p>Estruturamos recomendações considerando seu perfil de risco, prazo e necessidades.</p>
+            <p>Estruturamos seus investimentos considerando seu perfil de risco, prazo e necessidades.</p>
           </li>
           <li class="mapa-step reveal">
             <span class="mapa-letter" aria-hidden="true">A</span>
             <div class="mapa-top"><span class="mapa-num">ACOMPANHAMENTO E AJUSTE</span><svg aria-hidden="true"><use href="#i-refresh"/></svg></div>
             <h3>Investimentos precisam ser acompanhados</h3>
-            <p>Eu acompanho sua carteira, explico as recomendações e proponho ajustes quando necessário.</p>
+            <p>Eu acompanho sua carteira, explico todos os detalhes e proponho ajustes quando necessário.</p>
           </li>
         </ol>
         <div class="mapa-close reveal">
@@ -381,7 +395,7 @@
           <h2 class="h-section" id="s-cart-title">Uma carteira de investimentos não deve ser <span class="gold">uma coleção de aplicações sem direção.</span></h2>
           <p class="lead">Cada investimento deve ter uma função dentro do planejamento. Renda fixa, ações, fundos e outras classes de ativos podem cumprir papéis diferentes, dependendo dos seus objetivos e do seu perfil de risco.</p>
           <p class="lead">Meu trabalho é ajudar você a compreender essa composição e estruturar uma estratégia adequada à sua realidade.</p>
-          <p class="cart-scope">Aqui o assunto é um só: <strong>investimentos</strong>. Não trabalho com holding, planejamento tributário, sucessório ou imobiliário.</p>
+          <p class="cart-scope">Aqui o assunto é um só: <strong>investimentos</strong>. Como fazer o patrimônio crescer, como gerar renda passiva, como não perder poder de compra para a inflação. <strong>Quando o assunto é dinheiro, eu posso ajudar você.</strong></p>
           <a class="btn" href="#agendar" data-cta="carteira" style="margin-top:26px">Quero analisar minha carteira <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
         </div>
 
@@ -423,8 +437,8 @@
         <div class="acomp-grid">
           <ol class="steps-dark">
             <li class="reveal"><span class="sd-num">01</span><div><h3>Primeiro, quero entender sua realidade</h3><p>Vamos conversar sobre sua carreira, seus objetivos, seus investimentos e o futuro que você deseja construir.</p></div></li>
-            <li class="reveal"><span class="sd-num">02</span><div><h3>Depois, estruturamos sua carteira</h3><p>Com essas informações, desenvolvo recomendações de investimentos alinhadas aos seus objetivos e ao seu perfil.</p></div></li>
-            <li class="reveal"><span class="sd-num">03</span><div><h3>Eu explico cada decisão</h3><p>Você compreende os investimentos recomendados e recebe orientação prática para implementar as decisões.</p></div></li>
+            <li class="reveal"><span class="sd-num">02</span><div><h3>Depois, estruturamos sua carteira</h3><p>Com essas informações, desenvolvo todas as orientações de investimentos alinhadas aos seus objetivos e ao seu perfil.</p></div></li>
+            <li class="reveal"><span class="sd-num">03</span><div><h3>Eu explico cada decisão</h3><p>Você compreende os investimentos criados para a sua estratégia e recebe orientação prática para executar as decisões.</p></div></li>
             <li class="reveal"><span class="sd-num">04</span><div><h3>Continuamos acompanhando</h3><p>Ao longo do acompanhamento contratado — cerca de 12 meses —, revisamos sua estratégia e avaliamos possíveis ajustes: o que comprar, vender ou manter.</p></div></li>
           </ol>
 
@@ -432,7 +446,7 @@
             <figure class="panel" aria-label="Interface ilustrativa do acompanhamento">
               <figcaption class="panel-head"><span class="dot"></span><span class="dot"></span><span class="dot"></span><b>Acompanhamento da carteira</b><em>ilustrativo</em></figcaption>
               <div class="panel-row"><span class="pr-k">Carteira atual</span><span class="pr-v">Analisada e organizada por objetivo</span></div>
-              <div class="panel-row"><span class="pr-k">Recomendações</span>
+              <div class="panel-row"><span class="pr-k">Orientações</span>
                 <span class="pr-v pr-tags"><span class="tag buy">Comprar</span><span class="tag hold">Manter</span><span class="tag sell">Vender</span></span>
               </div>
               <div class="panel-row"><span class="pr-k">Implementação</span><span class="pr-v">Feita por você, com a minha orientação</span></div>
@@ -603,7 +617,7 @@
         <div class="faq reveal">
           <details>
             <summary>Preciso entender de investimentos?<span class="plus" aria-hidden="true"><svg><use href="#i-plus"/></svg></span></summary>
-            <div class="answer"><p>Não. Meu trabalho é explicar as recomendações e ajudar você a compreender as decisões.</p></div>
+            <div class="answer"><p>Não. Meu trabalho é explicar cada orientação e ajudar você a compreender as decisões.</p></div>
           </details>
           <details>
             <summary>Já tenho uma carteira. Podemos analisá-la?<span class="plus" aria-hidden="true"><svg><use href="#i-plus"/></svg></span></summary>
@@ -619,7 +633,7 @@
           </details>
           <details>
             <summary>Quem executa as operações?<span class="plus" aria-hidden="true"><svg><use href="#i-plus"/></svg></span></summary>
-            <div class="answer"><p>Você. Os investimentos ficam no seu nome, na sua corretora, e você autoriza e executa cada operação. Eu recomendo, explico e oriento você em cada passo.</p></div>
+            <div class="answer"><p>Você. Os investimentos ficam no seu nome, na sua corretora, e você autoriza e executa cada orientação. Eu crio a sua estratégia, explico e oriento você em cada passo.</p></div>
           </details>
           <details>
             <summary>O Café Digital é gratuito?<span class="plus" aria-hidden="true"><svg><use href="#i-plus"/></svg></span></summary>

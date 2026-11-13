@@ -18,7 +18,32 @@ nova-lp/
 
 ---
 
-## Versão 6 — Café Digital (atual)
+## Versão 7 — ajustes do Tiago (chamada de 12/11/2026)
+
+| Pedido | O que mudou |
+|---|---|
+| Cartão da 1ª dobra com dois rótulos | Ficou só "Carteira ilustrativa"; saiu "Exemplo demonstrativo". |
+| "Mais tranquilidade" | "Saber que existe um plano para seus investimentos cobrirem suas despesas." |
+| Aviso do simulador menor | "A simulação é ilustrativa…" virou uma linha pequena abaixo do parágrafo. |
+| "Hipotético" → "projetado" | "Valor final projetado", "Rendimentos projetados", "Rentabilidade anual considerada". |
+| Gráfico "pros 3" | **Eixo fixo** para 6/8/10% (escala calculada até pelo menos 10% a.a.). Trocar a taxa agora faz a curva subir visivelmente; antes o eixo se reescalava e a curva parecia igual. |
+| Tirar a inflação como opção | O "ver em valores de hoje" saiu. A inflação (4% editável) agora só faz a linha do **dinheiro parado** descer, mostrando a perda de poder de compra (R$ 100 mil → R$ 45,6 mil em 20 anos). |
+| Sem método × Com método | Cards "Sem método" × "Com o Método M.A.P.A." com a diferença projetada; clicar destaca a curva. **A mesma taxa nos dois lados:** a diferença vem do aporte com regra e do reinvestimento. Não usei 6% × 10%, porque atribuir rentabilidade maior ao método é anunciar retorno superior da consultoria, vedado pela CVM/ANBIMA (o próprio Tiago levantou essa dúvida na chamada). |
+| "Recomendação" é termo técnico (só analista recomenda) | Trocado por "orientação"/"estratégia" em todos os pontos afirmativos: seção 5, M.A.P.A. (P: "seus investimentos"; A: "explico todos os detalhes"), acompanhamento (itens 2 e 3 e painel), FAQ. Ficaram só os avisos "não é recomendação". |
+| Escopo "não trabalho com holding…" | "Aqui o assunto é um só: investimentos. Como fazer o patrimônio crescer, como gerar renda passiva, como não perder poder de compra para a inflação. Quando o assunto é dinheiro, eu posso ajudar você." |
+| "Se você não souber como executar alguma operação" | Aplicado na seção 5. |
+
+Novo evento: `simulator_compare` (`com_metodo` / `sem_metodo`).
+
+**Testes executados:**
+- Node: 7/7.
+- Navegador: eixo fixo em R$ 3,2 mi nas três taxas, com a curva subindo; cards, diferença e destaque funcionando; inflação mexendo só no dinheiro parado; sem erros no console; mobile sem estouro, com os cards empilhados.
+
+**⚠️ Ponto de atenção — registro na CVM:** na chamada, perguntado se tem registro de consultoria, o Tiago respondeu "Não posso aí… eu tenho que abrir empresa só PJ… é burocrático". A página afirma "Consultor de valores mobiliários — Registro na CVM" e "consultor de investimentos". **Confirmar com ele antes de qualquer tráfego pago.** Se o registro não estiver ativo, trocar por "Certificação CEA (ANBIMA)" e "especialista em investimentos".
+
+---
+
+## Versão 6 — Café Digital
 
 **Oferta de entrada:** Café Digital com Tiago Lopes, uma conversa individual e gratuita. Todos os CTAs principais levam ao formulário de solicitação (`#agendar`).
 

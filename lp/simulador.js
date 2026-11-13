@@ -19,21 +19,21 @@
   }
 
   /*
-   * Série anual de três cenários.
-   * Com inflação: tudo em "valores de hoje" — usa a taxa real
-   * (1+taxa)/(1+inflação)-1 e considera aportes reajustados pela inflação.
+   * Série anual de três cenários (mesma taxa em B e C):
+   *  C — Com o Método M.A.P.A.: valor inicial + aporte mensal, reinvestindo os rendimentos.
+   *  B — Sem método: só o valor inicial, sem novos aportes.
+   *  A — Dinheiro parado: valor inicial sem rendimento, em poder de compra
+   *      (descontado pela inflação considerada).
    */
   function simulate(o) {
-    var anos = o.anos, rNom = o.taxa, infl = o.inflacao || 0;
-    var real = !!o.real;
-    var rEff = real ? (1 + rNom) / (1 + infl) - 1 : rNom;
-    var i = monthlyRate(rEff);
+    var anos = o.anos, infl = o.inflacao || 0;
+    var i = monthlyRate(o.taxa);
     var A = [], B = [], C = [];
     for (var y = 0; y <= anos; y++) {
       var m = y * 12;
       C.push(futureValue(o.P, o.aporte, i, m));
       B.push(futureValue(o.P, 0, i, m));
-      A.push(real ? o.P / Math.pow(1 + infl, y) : o.P);
+      A.push(o.P / Math.pow(1 + infl, y));
     }
     var n = anos * 12;
     var vf = C[anos];
@@ -60,10 +60,11 @@
     var inA = $("sim-a"), rgA = $("sim-a-range");
     var rgN = $("sim-n"), outN = $("sim-n-out");
     var inR = $("sim-r"), chips = root.querySelectorAll(".rate-chip");
-    var inflOn = $("sim-infl-on"), inflRow = $("sim-infl-row"), inInfl = $("sim-infl");
+    var inInfl = $("sim-infl");
     var chartEl = $("sim-chart"), tip = $("sim-tip");
+    var cmpBtns = root.querySelectorAll(".cmp");
     var interacted = false;
-    var state = { P: 100000, aporte: 3000, anos: 20, taxa: 0.08, inflacao: 0.04, real: false };
+    var state = { P: 100000, aporte: 3000, anos: 20, taxa: 0.08, inflacao: 0.04 };
     var ready = false;
     var last = null, hoverYear = null, raf = 0;
 
@@ -111,10 +112,13 @@
     inR.addEventListener("input", function () { if (inR.value !== "") setRate(inR.value, true); });
     inR.addEventListener("blur", function () { inR.value = String(+(state.taxa * 100).toFixed(2)); });
 
-    inflOn.addEventListener("change", function () {
-      state.real = inflOn.checked;
-      inflRow.hidden = !inflOn.checked;
-      schedule();
+    // Comparação: destaca a curva "Sem método" ou "Com o Método M.A.P.A."
+    cmpBtns.forEach(function (b) {
+      b.addEventListener("click", function () {
+        cmpBtns.forEach(function (o) { o.setAttribute("aria-pressed", String(o === b)); });
+        chartEl.setAttribute("data-focus", b.getAttribute("data-line"));
+        track("simulator_compare", { scenario: b.getAttribute("data-line") === "c" ? "com_metodo" : "sem_metodo" });
+      });
     });
     inInfl.addEventListener("input", function () {
       var v = parseFloat(String(inInfl.value).replace(",", "."));
@@ -144,11 +148,13 @@
       $("st-vf").textContent = money(last.vf);
       $("st-g").textContent = money(last.rendimentos);
       $("st-cap").textContent = money(last.capital);
-      $("st-real-note").hidden = !state.real;
+      var sem = last.B[state.anos], com = last.C[state.anos];
+      $("cmp-sem").textContent = money(sem);
+      $("cmp-com").textContent = money(com);
+      $("cmp-diff").textContent = money(com - sem);
       chartEl.setAttribute("aria-label",
-        "Evolução hipotética em " + state.anos + " anos" + (state.real ? ", em valores de hoje" : "") +
-        ": com aportes mensais " + money(last.vf) + "; investimento inicial sem aportes " + money(last.B[state.anos]) +
-        "; dinheiro sem remuneração " + money(last.A[state.anos]) + ".");
+        "Evolução projetada em " + state.anos + " anos: com o Método M.A.P.A. " + money(com) +
+        "; sem método " + money(sem) + "; dinheiro parado, em poder de compra, " + money(last.A[state.anos]) + ".");
       drawChart();
     }
 
@@ -177,7 +183,11 @@
       var pad = { l: W < 520 ? 62 : 74, r: 14, t: 14, b: 30 };
       var iw = W - pad.l - pad.r, ih = H - pad.t - pad.b;
       var N = state.anos;
-      var maxV = niceMax(Math.max.apply(null, last.C.concat(last.B, last.A)) * 1.04);
+      // Escala fixa para os cenários de taxa (até pelo menos 10% a.a.): ao trocar
+      // 6% → 8% → 10%, o eixo não muda e a curva sobe de forma visível.
+      var rScale = Math.max(state.taxa, 0.10);
+      var topScale = futureValue(state.P, state.aporte, monthlyRate(rScale), N * 12);
+      var maxV = niceMax(Math.max(topScale, Math.max.apply(null, last.C.concat(last.B, last.A))) * 1.04);
       var x = function (y) { return pad.l + (N === 0 ? 0 : (y / N) * iw); };
       var yv = function (v) { return pad.t + ih - (Math.max(0, v) / maxV) * ih; };
       geo = { x: x, yv: yv, pad: pad, iw: iw, ih: ih, W: W, H: H, N: N };

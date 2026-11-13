@@ -1033,3 +1033,35 @@ main > section:not(.hero), .site-footer { content-visibility: auto; contain-intr
 /* apresentação do Tiago na seção "você não está sozinho" */
 .solo-intro { font-size: 1.1rem; color: rgba(255, 255, 255, 0.9); padding-bottom: 14px; border-bottom: 1px solid var(--line-light); }
 .solo-intro strong { color: var(--white); }
+
+/* =========================================================
+   v7 — simulador: comparação Sem método × Com o Método M.A.P.A.
+   ========================================================= */
+.sim-lead-note { margin-top: 10px; font-size: 0.8rem; color: var(--muted); }
+
+.sim-compare { margin-top: 18px; padding: 16px; border-radius: 14px; background: var(--off); border: 1px solid var(--line); }
+.cmp-title { font-size: 0.82rem; font-weight: 700; color: var(--navy); }
+.cmp-row { margin-top: 10px; display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
+.cmp {
+  display: grid; gap: 4px; text-align: left; cursor: pointer; font: inherit;
+  padding: 14px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--white);
+  transition: border-color .2s, box-shadow .2s, transform .2s;
+}
+.cmp:hover { transform: translateY(-1px); }
+.cmp-k { font-family: var(--font-head); font-weight: 800; font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; }
+.cmp b { font-family: var(--font-head); font-size: clamp(1.05rem, 2.4vw, 1.35rem); color: var(--navy); overflow-wrap: anywhere; }
+.cmp small { font-size: 0.76rem; color: var(--muted); line-height: 1.4; }
+.cmp-sem .cmp-k { color: #6b7684; }
+.cmp-com .cmp-k { color: var(--gold-text); }
+.cmp-com b { color: #1f6b43; }
+.cmp[aria-pressed="true"].cmp-com { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(182, 155, 105, 0.18); }
+.cmp[aria-pressed="true"].cmp-sem { border-color: var(--navy-2); box-shadow: 0 0 0 3px rgba(38, 61, 88, 0.14); }
+.cmp-diff { margin-top: 10px; font-size: 0.88rem; color: var(--muted); }
+.cmp-diff b { color: var(--navy); font-family: var(--font-head); }
+@media (max-width: 420px) { .cmp-row { grid-template-columns: 1fr; } }
+
+/* destaque da curva escolhida */
+.sim-chart .line-b, .sim-chart .line-c, .sim-chart .area-c { transition: opacity .25s, stroke-width .25s; }
+.sim-chart[data-focus="b"] .line-c, .sim-chart[data-focus="b"] .area-c { opacity: 0.22; }
+.sim-chart[data-focus="b"] .line-b { stroke-width: 3.5; }
+.sim-chart[data-focus="c"] .line-c { stroke-width: 3.5; }
