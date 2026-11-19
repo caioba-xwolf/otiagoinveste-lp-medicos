@@ -18,6 +18,29 @@ nova-lp/
 
 ---
 
+## Deploy em produção — Hostinger (19/11/2026)
+
+A nova LP está publicada em **https://otiagoinveste.com/** (Hostinger → Gerenciador de arquivos → `public_html`).
+
+**Enviado:** `index.html` (substituído), `obrigado/index.html` (substituído), `privacidade/index.html` (novo), `lp/` (CSS, JS, fonte e fotos — novo).
+
+**Mantido sem alteração:** `enviar-lead.php`, `PHPMailer/`, `.htaccess`, `default.php`, `assets/`, `medicos/` e `renda-passiva/` (as páginas antigas continuam respondendo).
+
+**Backup da versão anterior:** `public_html/_backup-lp-antiga-2026-11-19/` (com `index.html` e `obrigado/`). O acesso pela web está bloqueado por um `.htaccess` com `Require all denied` (responde 403). Para reverter, basta copiar esses arquivos de volta para `public_html`.
+
+**Cache:** o `.htaccess` da raiz manda CSS e JS ficarem 1 ano em cache. Por isso as referências usam `?v=20261119`. **A cada atualização de CSS/JS, troque esse número** em `index.html`, `obrigado/index.html` e `privacidade/index.html`.
+
+**Verificado após o deploy:**
+- Todos os arquivos respondem 200, com tamanhos idênticos aos locais.
+- Modo prévia desligado (`demo: false`).
+- Meta Pixel 1028082333350113 carregando e enviando PageView.
+- `robots: index, follow`.
+- Sem erros no console.
+- `/medicos/` e `/renda-passiva/` OK; backup com 403.
+- **Não foi feito envio de teste do formulário**, para não mandar um lead falso ao e-mail do Tiago. O PHP recebe os mesmos campos do formulário anterior.
+
+---
+
 ## Versão 7 — ajustes do Tiago (chamada de 12/11/2026)
 
 | Pedido | O que mudou |
