@@ -43,7 +43,7 @@ A nova LP está publicada em **https://otiagoinveste.com/** (Hostinger → Geren
 
 ### Atualização de 25/11/2026 — página de obrigado
 
-`obrigado/index.html` ganhou o botão verde "QUERO ACELERAR MEU CAFÉ DIGITAL!" (`https://wa.link/ch0psy`, que abre o WhatsApp 55 47 99213-4337). O estilo fica na própria página, então não é preciso trocar o `?v=`. O clique envia `whatsapp_click` e, no Meta, o evento personalizado `WhatsAppClick`; não conta como Lead. Publicado na Hostinger e conferido (arquivo no ar idêntico ao do repositório).
+`obrigado/index.html` ganhou o botão verde "QUERO ACELERAR MEU CAFÉ DIGITAL!" (`https://wa.link/tsrabj`, que abre o WhatsApp 55 47 98827-1777). O estilo fica na própria página, então não é preciso trocar o `?v=`. O clique envia `whatsapp_click` e, no Meta, o evento personalizado `WhatsAppClick`; não conta como Lead. Publicado na Hostinger e conferido (arquivo no ar idêntico ao do repositório).
 
 ---
 
