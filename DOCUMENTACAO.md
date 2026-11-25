@@ -41,6 +41,12 @@ A nova LP está publicada em **https://otiagoinveste.com/** (Hostinger → Geren
 
 ---
 
+### Atualização de 25/11/2026 — página de obrigado
+
+`obrigado/index.html` ganhou o botão verde "QUERO ACELERAR MEU CAFÉ DIGITAL!" (`https://wa.link/ch0psy`, que abre o WhatsApp 55 47 99213-4337). O estilo fica na própria página, então não é preciso trocar o `?v=`. O clique envia `whatsapp_click` e, no Meta, o evento personalizado `WhatsAppClick`; não conta como Lead. Publicado na Hostinger e conferido (arquivo no ar idêntico ao do repositório).
+
+---
+
 ## Versão 7 — ajustes do Tiago (chamada de 12/11/2026)
 
 | Pedido | O que mudou |
@@ -117,7 +123,7 @@ Objetivos, na ordem: renda passiva que pague as contas → diminuir a dependênc
   - Validação com 5 erros.
   - Modo prévia não envia dados.
   - Produção simulada: erro → sem Lead; sucesso → 1 `generate_lead` com `cafe_digital`.
-  - 9 CTAs apontando para `#agendar` (mais o link do YouTube).
+  - 8 CTAs apontando para `#agendar` (mais o link do YouTube).
   - Sem erros no console.
 - **Responsividade:** 1366 px e 375 px sem estouro horizontal. Botão do topo visível na primeira tela: termina em 776/820 px no desktop e em 694/812 px no mobile. Botões com 56 px de altura no mobile.
 - **Lighthouse (versão publicada):**
